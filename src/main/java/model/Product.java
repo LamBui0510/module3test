@@ -21,17 +21,6 @@ public class Product {
 
 
 
-    public void setIdCategories(int idCategories) {
-        this.idCategories = idCategories;
-    }
-
-    public String getNamecategory() {
-        return namecategory;
-    }
-
-    public void setNamecategory(String namecategory) {
-        this.namecategory = namecategory;
-    }
 
     public Product(int id, String name, double price, int quantity, String color, String description, int idCategories) {
         this.id = id;
@@ -53,6 +42,17 @@ public class Product {
         this.description = description;
         this.namecategory = namecategory;}
 
+    public void setIdCategories(int idCategories) {
+        this.idCategories = idCategories;
+    }
+
+    public String getNamecategory() {
+        return namecategory;
+    }
+
+    public void setNamecategory(String namecategory) {
+        this.namecategory = namecategory;
+    }
     public int getId() {
         return id;
     }

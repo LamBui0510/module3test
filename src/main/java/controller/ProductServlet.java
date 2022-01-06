@@ -90,15 +90,14 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void searchHocvien(HttpServletRequest req, HttpServletResponse resp) {
-        String searchName = req.getParameter("search");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("view/showproduct.jsp");
-        List<Product> productList = productDao.searchByName(searchName);
-        req.setAttribute("productlist", productList);
+        String name = req.getParameter("search");
+
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/view/showProduct.jsp");
+        List<Product> productList = productDao.searchByName(name);;
+        req.setAttribute("products", productList);
         try {
-            requestDispatcher.forward(req,resp);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
+            dispatcher.forward(req, resp);
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }

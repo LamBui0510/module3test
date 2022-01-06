@@ -50,7 +50,7 @@
                 <th>color        </th>
                 <th>description      </th>
                 <th>namecategory    </th>
-                <th>  <a href="/product?action=create&id=${p.id}" class="btn btn-success">create</a></th>
+
                 <c:forEach items="${listproduct}" var="p" varStatus="loop">
                     <tr>
                         <td>${loop.count}</td>
@@ -60,7 +60,7 @@
                         <td>${p.color}</td>
                         <td>${p.description}</td>
                         <td>${p.namecategory}</td>
-
+                        <td>  <a href="/product?action=create&id=${p.id}" class="btn btn-success">create</a></td>
                         <td><a href="/product?action=edit&id=${p.id}" class="btn btn-success">edit</a></td>
                         <td><a href="/product?action=delete&id=${p.id}" class="btn btn-danger">delete</a></td>
                     </tr>

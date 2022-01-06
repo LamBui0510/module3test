@@ -1,9 +1,12 @@
 package dao;
 
 import model.Product;
+import service.ProductService;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +23,7 @@ public class ProductDao implements IDAO <Product> {
             preparedStatement.setString(4, product.getColor());
             preparedStatement.setString(5, product.getDescription());
             preparedStatement.setInt(6, product.getIdCategories());
-
+            preparedStatement.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -28,12 +31,12 @@ public class ProductDao implements IDAO <Product> {
 
     @Override
     public List<Product> findAll() {
-        List<Product> productList = new ArrayList<>();
+
         PreparedStatement preparedStatement = null;
         String select = "Select product.*, category.namecategory from product join category on product.idCategory = category.idCategory";
+        List<Product> productList = new ArrayList<>();
         try {
             preparedStatement = ConnectionJDBC.getConnection().prepareStatement(select);
-            ConnectionJDBC.getConnection().setAutoCommit(false);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
@@ -45,11 +48,11 @@ public class ProductDao implements IDAO <Product> {
                 String namecategory = rs.getString("namecategory");
                 productList.add(new Product(id, name, price, quantity, color, description, namecategory));
 
-            }
+            } return productList;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return productList;
+        return null;
     }
 
     @Override
@@ -84,11 +87,11 @@ public class ProductDao implements IDAO <Product> {
         }
     }
     public List<Product> searchByName(String findName) {
-        List<Product> productList = new ArrayList<>();
-        String selectByName = "Select product.*, category.namecategory from product join category on product.idCategory = category.idCategory where product.name like  '%" + findName + "%'";
+        String selectByName =  "select product.* , category.nameCate from product join category on product.idcategory = category.idcategory where product.name like  '%" + findName + "%'";
         try {
-            PreparedStatement preparedStatement = ConnectionJDBC.getConnection().prepareStatement(selectByName);
-            ResultSet rs = preparedStatement.executeQuery();
+          Statement statement = connectionJDBC.getConnection().createStatement();
+            ResultSet rs = statement.executeQuery(selectByName);
+            List<Product> productList = new ArrayList<>();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");

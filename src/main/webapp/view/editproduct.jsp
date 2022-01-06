@@ -44,7 +44,7 @@
         <select name="idCategory">
             <c:forEach items="${category}" var="p">
                 <option value="${p.idCategory}">
-                    <p>${p.name}</p>
+                    <p>${p.namecategory}</p>
                 </option>
             </c:forEach>
         </select>
